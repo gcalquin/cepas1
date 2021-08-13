@@ -16,14 +16,11 @@
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
-    <%= form.label :score %>
-    <%= form.number_field :score %>
-  </div>
+
 
   <div class="field">
     <%= form.label :strains %>
-    <%= form.collection_check_boxes(:strain_ids, Strain.all, :id, :name) do |b| %>
+    <%= form.collection_check_boxes(:strain_ids, @strains_availables, :id, :name) do |b| %>
        <%= b.label class:"label-checkbox" do  %>
          <%= b.check_box + b.text %>
          <%= text_field( "wine[strains_percent]", b.value, value: @wine.getPercentageByStrainId(b.value)) %>
@@ -31,6 +28,28 @@
        <% end  %>
     <% end  %>
   </div>
+
+<% if @oenologists %>
+  <div class="field">
+    <%= form.label :score %>
+    <%= form.number_field :score %>
+  </div>
+
+  <div class="field">
+    <%= form.label :oenologists %>
+    <%= form.collection_check_boxes(:oenologists, @oenologists, :id, :name) do |o| %>
+    <%= o.label class:"label-checkbox" do %>
+    <% if  @wine.oenologists.pluck(:id).include? (o.value) %>
+       <%= o.check_box({checked: true}) + o.text %>
+    <% else %>
+       <%= o.check_box + o.text %>
+    <% end %>
+    <br/>
+    <% end %>
+    <% end %>
+  </div>
+  <% end %>
+
 
 
   <div class="actions">

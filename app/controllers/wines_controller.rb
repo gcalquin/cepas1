@@ -1,5 +1,9 @@
 class WinesController < ApplicationController
   before_action :set_wine, only: %i[ show edit update destroy ]
+  before_action :only_strains_availables, only:[:new, :edit]
+
+
+
 
   # GET /wines or /wines.json
   def index
@@ -17,6 +21,7 @@ class WinesController < ApplicationController
 
   # GET /wines/1/edit
   def edit
+    @oenologists = Oenologist.order(:age)
   end
 
   # POST /wines or /wines.json
@@ -40,6 +45,8 @@ class WinesController < ApplicationController
   def update
     respond_to do |format|
       if @wine.update(wine_params)
+        @wine.oenologists.destroy_all
+        @wine.oenologists << Oenologist.where(id: params[:wine][:oenologists])
         @wine.addStrainPercent(params[:wine][:strains_percent])
         format.html { redirect_to @wine, notice: "Wine was successfully updated." }
         format.json { render :show, status: :ok, location: @wine }
@@ -63,6 +70,10 @@ class WinesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_wine
       @wine = Wine.find(params[:id])
+    end
+
+    def only_strains_availables
+      @strains_availables = Strain.where(available: true)
     end
 
     # Only allow a list of trusted parameters through.
