@@ -1,24 +1,15 @@
-# README
+Este proyecto tiene un usuario administrador ya creado en heroku, para cumplir con las exigencias del desafio.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+gcalquin@123.cl
+pwd: 123456
 
-Things you may want to cover:
+Las rutas de acceso para creacion son
 
-* Ruby version
+https://cepasgcc.herokuapp.com/oenologists
+https://cepasgcc.herokuapp.com/strains
+https://cepasgcc.herokuapp.com/wines
 
-* System dependencies
+El ruta raiz pueden crear usuarios, pero estos no quedaran como adminitradores.
 
-* Configuration
+La version de ruby utilizada acá es la 2.6.0
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
